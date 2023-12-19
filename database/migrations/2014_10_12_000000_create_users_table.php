@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->string('role')->nullable();
+            $table->string('adress')->nullable();
+            $table->string('phone')->nullable();
+            $table->boolean('active')->default(true);
+            $table->integer('rating')->default(0);
         });
     }
 

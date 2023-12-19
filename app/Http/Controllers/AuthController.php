@@ -8,20 +8,24 @@ use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 
+
 class AuthController extends Controller
 {
-    //
+    //=======================================================
+
     public function login(Request $request){
         $credentials = $request->validate([
-            'email' => ['rquired','email','exists:users,email'],
-            'password' => ['required'],
+            'email' => ['required','email','exists:users,email'],
+            'password' => ['required']
         ]);
 
         Auth::attempt($credentials,$request->has('remember'));
 
         return 0;
     }
-
+    
+    //=======================================================
+    
     public function signup(Request $request){
         $credentials = $request->validate([
             'name' => ['required', 'string','min:3','max:55'],
@@ -45,6 +49,8 @@ class AuthController extends Controller
         return redirect()->route('verification.notice');
     }
 
+    //=======================================================
+    
     public function logout(Request $request){
 
         Auth::logout();
