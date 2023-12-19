@@ -1,7 +1,6 @@
 @include('menu')
-@error('email')
-    <span> {{ $errors->get('email') }} </span>
-@enderror
+
+
 <h1>Reset Password</h1>
 <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <form method="POST">  @csrf

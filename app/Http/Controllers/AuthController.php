@@ -19,9 +19,15 @@ class AuthController extends Controller
             'password' => ['required']
         ]);
 
-        Auth::attempt($credentials,$request->has('remember'));
+        if(Auth::attempt($credentials,$request->has('remember'))){
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('admin');
+        }
 
-        return 0;
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
     
     //=======================================================
