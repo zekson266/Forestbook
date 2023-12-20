@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-floating">
                     <input class="form-control border-0 input-login-password"
-                        name="password"
+                        name="password_confirmation"
                         type="password"
                         id="floatingPassword_confirmation"
                         placeholder="password_confirmation"
