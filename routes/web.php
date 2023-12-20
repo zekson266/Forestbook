@@ -28,9 +28,28 @@ Route::middleware('can:AdminRole')->group(function () {
 });
 
 
+// Route::post('/uniprom', function (Request $request) {
+
+//     $data = $request->json()->all();
+
+//     $jsonData = json_encode($data);
+
+//     $fileName = 'log_' . now()->format('Y-m-d_H-i-s') . '.json';
+
+//     $directory = storage_path('logs');
+
+//     Storage::put("{$directory}/{$fileName}", $jsonData);
+
+//     // return response()->json(['message' => 'Data saved to log file successfully'], 200);
+//     return response()->json(['status' => ['code' => 200, 'errortext' => 'OK']]);
+
+// });
+
 Route::post('/uniprom', function (Request $request) {
 
     $data = $request->json()->all();
+
+    //\Log::info('Received data:', $data);
 
     $jsonData = json_encode($data);
 
@@ -38,7 +57,11 @@ Route::post('/uniprom', function (Request $request) {
 
     $directory = storage_path('logs');
 
-    Storage::put("{$directory}/{$fileName}", $jsonData);
+    if (!file_exists($directory)) {
+        mkdir($directory, 0755, true);
+    }
 
-    return response()->json(['message' => 'Data saved to log file successfully'], 200);
+    file_put_contents("{$directory}/{$fileName}", $jsonData);
+
+     return response()->json(['status' => ['code' => 200, 'errortext' => 'OK']]);
 });
