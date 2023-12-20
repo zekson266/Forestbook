@@ -152,13 +152,12 @@
             <div class="d-lg-flex col-lg-4 justify-content-lg-end d-sm-none">
 
                 @auth
-                <a href="/logout">{{ Auth::user()->name }}</a>
+                <a class="navbar-brand" href="/logout">{{ Auth::user()->name }}</a>
                 @else
                     <a class="navbar-brand" href="/login">Увійти </a>
                     <a class="navbar-brand" href="/signup">Зареєструватися</a>
 
                 @endauth
-
 
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

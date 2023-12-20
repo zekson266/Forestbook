@@ -4,7 +4,7 @@
 <head>
 
   <title>ForestBook</title>
-  <script src="../assets/js/color-modes.js"></script>
+  {{-- <script src="../assets/js/color-modes.js"></script> --}}
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
 
   @include('layouts.footer')
 
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  {{-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 </body>
 
