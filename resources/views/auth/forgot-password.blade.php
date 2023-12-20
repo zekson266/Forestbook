@@ -11,18 +11,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container d-flex justify-content-center">
-        <h1>Forgot password</h1>
+<div class="container d-flex justify-content-center align-items-center my-5">
+    <div class="col-lg-5 my-3">
+        <main class="form-signin w-100 m-auto">
+            <form method="POST">
+                @csrf
+                <div class="h3 mb-3 fw-normal d-flex justify-content-center login-text">Відновлення паролю</div>
+                <div class="form-floating">
+                    <input name="email" type="email" class="form-control border-0 input-login-password"
+                        id="floatingInput" placeholder="Login" required>
+                    <label for="floatingInput">email</label>
+                </div>
+                <button class="btn btn-primary w-100 py-2 login-btn mt-4" type="submit">Відновити</button>
+            </form>
+        </main>
     </div>
-
-    <div class="container d-flex justify-content-center align-items-center my-5">
-
-        <form method="POST">
-            @csrf
-            <label>email:</label>
-            <input type="email" name="email" value="" required>
-            <br>
-            <button type="submit">Sign In</button>
-        </form>
-    </div>
+</div>
 @endsection
