@@ -77,7 +77,7 @@
             </a>
         </span>
 
-        <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
+        <div class="collapse navbar-collapse d-lg-flex">
             <div class="d-lg-flex col-lg-4 me-0 d-sm-none ">
                 <a href="/">
                     <svg width="94" height="53" viewBox="0 0 94 53" fill="none"
