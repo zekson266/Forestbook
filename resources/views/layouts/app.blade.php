@@ -11,7 +11,6 @@
   <meta name="description" content="">
   <meta name="author" content="Suto">
   <meta name="generator" content="Hugo 0.118.2">
-  <title>ForestBook Login</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbars/">
 
@@ -29,6 +28,7 @@
 
   @include('layouts.header')
 
+  @include('layouts.navbar')
 
   @yield('content')
 
@@ -36,7 +36,7 @@
 
   @include('layouts.footer')
 
-  {{-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> --}}
+  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 
 </body>
 
