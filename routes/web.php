@@ -1,13 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use App\Models\User;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +25,20 @@ Route::view('/home','index')->name('home');
 
 Route::middleware('can:AdminRole')->group(function () {
     Route::view('/admin','admin.index')->name('admin.home');
+});
+
+
+Route::post('/uniprom', function (Request $request) {
+
+    $data = $request->json()->all();
+
+    $jsonData = json_encode($data);
+
+    $fileName = 'log_' . now()->format('Y-m-d_H-i-s') . '.json';
+
+    $directory = storage_path('logs');
+
+    Storage::put("{$directory}/{$fileName}", $jsonData);
+
+    return response()->json(['message' => 'Data saved to log file successfully'], 200);
 });
