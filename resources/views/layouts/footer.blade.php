@@ -1,7 +1,7 @@
 <div class="footer mt-auto">
     <div class="container my-3">
-        <footer class="d-flex flex-wrap justify-content-center align-items-center footer-height">
-            <div class="col-md-4 my-2 ">
+        <footer class="d-flex  flex-wrap justify-content-center align-items-center footer-height">
+            <div class="col-md-4  my-2 ">
                 <svg width="94" height="54" viewBox="0 0 94 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_50_36)">
                         <path

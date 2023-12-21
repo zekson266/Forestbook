@@ -12,8 +12,8 @@
 
 @section('content')
 <div class="container d-flex justify-content-center align-items-center my-5">
-    <div class="col-lg-4 my-3">
-        <main class="form-signin w-100 m-auto">
+    <div class="col-lg-4 col-md-5 col-sm-7 col">
+        <main class="form-signin ">
             <form method="POST">
                 @csrf
                 <div class="h3 mb-3 fw-normal d-flex justify-content-center login-text">Реєстрація</div>

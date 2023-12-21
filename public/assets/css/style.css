@@ -204,8 +204,14 @@ input[type=number]:focus,
     border-color: #283400;
 }
 
-.login-btn:active,
+/* .login-btn:active,
 .login-btn.active {
+    background-color: #3b4d00 !important;
+    border-color: #3b4d00 !important;
+} */
+
+body .login-btn:active,
+body .login-btn.active {
     background-color: #3b4d00 !important;
     border-color: #3b4d00 !important;
 }
