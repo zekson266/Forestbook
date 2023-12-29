@@ -21,7 +21,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials,$request->has('remember'))){
             $request->session()->regenerate();
- 
+
             return redirect()->intended('admin');
         }
 
@@ -29,19 +29,17 @@ class AuthController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-    
+
     //=======================================================
-    
+
     public function signup(Request $request){
         $credentials = $request->validate([
             'name' => ['required', 'string','min:3','max:55'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => [
                 'required',
-                Password::min(8)
-                    ->letters()
-                    ->symbols()
-                    ->numbers()
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[^\s]+$/',
             ],
             'password_confirmation' => ['required','same:password']
         ]);
@@ -56,7 +54,7 @@ class AuthController extends Controller
     }
 
     //=======================================================
-    
+
     public function logout(Request $request){
 
         Auth::logout();
