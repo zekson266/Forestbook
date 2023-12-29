@@ -1,12 +1,3 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 @extends('layouts.app')
 
@@ -17,6 +8,17 @@
             <form method="POST">
                 @csrf
                 <div class="h3 mb-3 fw-normal d-flex justify-content-center login-text">Реєстрація</div>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="form-floating">
                     <input class="form-control border-0 input-login-password"
                         name="name"
