@@ -8,19 +8,64 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Http\Requests\Auth\SignupRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\UpdatePassRequest;
 
 Route::view('/signup','auth.signup')->name('signup')
     ->middleware('guest');
 Route::view('/login','auth.login')->name('login')
     ->middleware('guest');
 
-Route::get('/logout',[App\Http\Controllers\AuthController::class,'logout'])
-    ->middleware('auth');
+// Route::get('/logout',[App\Http\Controllers\AuthController::class,'logout'])
+//     ->middleware('auth');
 
-Route::post('/signup',[App\Http\Controllers\AuthController::class,'signup'])
-    ->middleware('guest');
-Route::post('/login',[App\Http\Controllers\AuthController::class,'login'])
-    ->middleware('guest');
+// Logout
+Route::get('/logout',function (){
+
+    Auth::logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+
+})->middleware('auth');
+
+// Route::post('/signup',[App\Http\Controllers\AuthController::class,'signup'])
+//     ->middleware('guest');
+
+// Signup
+Route::post('/signup', function (SignupRequest $request){
+    $credentials = $request->validated();
+
+    $user = User::create($credentials);
+
+    event(new Registered($user));
+
+    Auth::login($user);
+
+    return redirect()->route('verification.notice');
+})->middleware('guest');
+
+// Route::post('/login',[App\Http\Controllers\AuthController::class,'login'])
+//     ->middleware('guest');
+
+// Login
+Route::post('/login', function (LoginRequest $request){
+    $credentials = $request->validated();
+
+    if(Auth::attempt($credentials,$request->has('remember'))){
+        $request->session()->regenerate();
+
+        return redirect()->intended('admin');
+    }
+
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
+})->middleware('guest');
 
 // Verefication notice
 Route::get('/email/verify', function () {
@@ -65,19 +110,8 @@ Route::get('/reset-password/{token}', function (string $token) {
 })->middleware('guest')->name('password.reset');
 
 // Update password Action
-Route::post('/reset-password/{token}', function (Request $request) {
-    $credentials = $request->validate([
-        'token' => ['required'],
-        'email' => ['required', 'email', 'unique:users,email'],
-        'password' => [
-            'required',
-            Password::min(8)
-                ->letters()
-                ->symbols()
-                ->numbers()
-        ],
-        'password_confirmation' => ['required','same:password']
-    ]);
+Route::post('/reset-password/{token}', function (UpdatePassRequest $request) {
+    $credentials = $request->validated();
  
     $status = Password::reset(
         $credentials,

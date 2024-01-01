@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Uniprom;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,11 @@ Route::middleware('can:AdminRole')->group(function () {
     Route::view('/admin','admin.index')->name('admin.home');
 });
 
-
 // Route::post('/uniprom', function (Request $request) {
 
 //     $data = $request->json()->all();
+
+//     //\Log::info('Received data:', $data);
 
 //     $jsonData = json_encode($data);
 
@@ -38,30 +40,18 @@ Route::middleware('can:AdminRole')->group(function () {
 
 //     $directory = storage_path('logs');
 
-//     Storage::put("{$directory}/{$fileName}", $jsonData);
+//     if (!file_exists($directory)) {
+//         mkdir($directory, 0755, true);
+//     }
 
-//     // return response()->json(['message' => 'Data saved to log file successfully'], 200);
-//     return response()->json(['status' => ['code' => 200, 'errortext' => 'OK']]);
+//     file_put_contents("{$directory}/{$fileName}", $jsonData);
 
+//      return response()->json(['status' => ['code' => 200, 'errortext' => 'OK']]);
 // });
 
-Route::post('/uniprom', function (Request $request) {
+Route::post('/uniprom', function (UpdateUnipromRequest $request) {
 
-    $data = $request->json()->all();
-
-    //\Log::info('Received data:', $data);
-
-    $jsonData = json_encode($data);
-
-    $fileName = 'log_' . now()->format('Y-m-d_H-i-s') . '.json';
-
-    $directory = storage_path('logs');
-
-    if (!file_exists($directory)) {
-        mkdir($directory, 0755, true);
-    }
-
-    file_put_contents("{$directory}/{$fileName}", $jsonData);
+    Uniprom::upsert($request->validated(),['guid']);
 
      return response()->json(['status' => ['code' => 200, 'errortext' => 'OK']]);
 });
