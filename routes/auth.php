@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use App\Http\Requests\Auth\SignupRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\UpdatePassRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 Route::view('/signup','auth.signup')->name('signup')
     ->middleware('guest');
@@ -21,7 +23,7 @@ Route::view('/login','auth.login')->name('login')
 //     ->middleware('auth');
 
 // Logout
-Route::get('/logout',function (){
+Route::get('/logout',function (Request $request){
 
     Auth::logout();
 
@@ -59,7 +61,7 @@ Route::post('/login', function (LoginRequest $request){
     if(Auth::attempt($credentials,$request->has('remember'))){
         $request->session()->regenerate();
 
-        return redirect()->intended('admin');
+        return redirect()->intended();
     }
 
     return back()->withErrors([
