@@ -11,7 +11,7 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,19 @@ class UpdateBookRequest extends FormRequest
     {
         return [
             //
+            'goods' => ['required','array'],
+            'goods.*.barcode'=>['nullable'],
+            'goods.*.barcode2'=>['nullable'],
+            'goods.*.barcode3'=>['nullable'],
+            'goods.*.guid'=>['nullable'],
+            'goods.*.name'=>['nullable'],
+            'goods.*.qtty'=>['nullable'],
+            'goods.*.p1'=>['nullable'],
+            'goods.*.dopprop1'=>['nullable'],
+            'goods.*.dopprop2'=>['nullable'],
+            'goods.*.dopprop3'=>['nullable'],
+            'goods.*.dopprop4'=>['nullable'],
+            'goods.*.dopprop5'=>['nullable'],
         ];
     }
 }
